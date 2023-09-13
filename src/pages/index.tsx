@@ -283,7 +283,7 @@ const Home = () => {
             <Text align='center' size='big'>
               Luan{' '}
             </Text>
-            <Text align='center'>Vagabundo</Text>
+            <Text align='center'>Design</Text>
           </Flex>
         </Flex>
       </S.backgroundImage>

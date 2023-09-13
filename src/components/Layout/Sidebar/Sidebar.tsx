@@ -112,6 +112,10 @@ export const Sidebar = () => {
           text: 'Vagas',
           href: ROUTES.VACANCIES.url,
         },
+        {
+          text: 'Voluntarios',
+          href: ROUTES.VOLUNTER.url,
+        },
       ],
     },
     {
@@ -128,6 +132,14 @@ export const Sidebar = () => {
         {
           text: 'Vagas',
           href: ROUTES.VACANCIES.url,
+        },
+        {
+          text: 'Favoritos',
+          href: ROUTES.FAVORITE.url,
+        },
+        {
+          text: 'Vagas cadastrada',
+          href: ROUTES.VACANCIES_CADASTER.url,
         },
       ],
     },

@@ -26,7 +26,9 @@ const ResetPasswordCompany = () => {
     }
 
     try {
-      await axios.post('http://localhost:8050/empresa/red-senha', { newPassword: senha })
+      await axios.post('http://localhost:8050/empresa/red-senha', {
+        newPassword: senha,
+      })
       setMessage('Senha redefinida com sucesso!')
       reset()
     } catch (error) {

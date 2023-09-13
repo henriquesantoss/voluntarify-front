@@ -25,7 +25,9 @@ const ResetPasswordVoluntary = () => {
     }
 
     try {
-      await axios.post('http://localhost:8050/voluntario', { senha })
+      await axios.post('http://localhost:8050/voluntario', {
+        senha,
+      })
       setMessage('Senha redefinida com sucesso!')
       reset()
     } catch (error) {

@@ -41,7 +41,7 @@ export default function ResetPasswordVoluntary() {
         router.push('/login')
       } catch (error) {
         console.error(error)
-    }
+      }
     },
   )
 

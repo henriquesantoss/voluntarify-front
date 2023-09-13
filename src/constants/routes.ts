@@ -12,6 +12,9 @@ export enum PAGES {
   EDIT_PERFIL_VOLUNTARY = '/editar-perfil/[index]/voluntario',
   EDIT_PERFIL_COMPANY = '/editar-perfil/[index]/empresa',
   VACANCIES = '/vagas',
+  VOLUNTER = '/voluntarios',
+  VACANCIES_CADASTER = '/vagas-cadastrada',
+  FAVORITE = '/favoritos',
   CREAT_VACANCIES = '/criar-vagas',
   RESET_PASSWORD = '/reset-password',
   RESET_PASSWORD_VOLUNTARY = '/reset-password/voluntario',
@@ -30,6 +33,15 @@ export const ROUTES = {
   },
   VACANCIES: {
     url: PAGES.VACANCIES,
+  },
+  VOLUNTER: {
+    url: PAGES.VOLUNTER,
+  },
+  VACANCIES_CADASTER: {
+    url: PAGES.VACANCIES_CADASTER,
+  },
+  FAVORITE: {
+    url: PAGES.FAVORITE,
   },
   CREAT_VACANCIES: {
     url: PAGES.CREAT_VACANCIES,

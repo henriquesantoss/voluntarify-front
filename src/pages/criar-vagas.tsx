@@ -46,13 +46,14 @@ const CreatedVaga = () => {
         if (token) {
           const decodedToken: any = jwt.decode(token)
           console.log(decodedToken)
-          const id = decodedToken.id
-          const response = await axios.get(
-            `http://localhost:8050/empresa/${id}`,
-          )
-          const data = response.data
-          setUserId(data.id)
-          setVal(data.razao_social)
+          setUserId(decodedToken.id)
+          // const response = await axios.get(
+          //   `http://localhost:8050/empresa/${id}`,
+          // )
+          // const data = response.data
+          // setUserId(data.id)
+          // console.log(userId)
+          // setVal(data.razao_social)
         }
       } catch (error) {
         console.log(error)
@@ -64,6 +65,8 @@ const CreatedVaga = () => {
   }, [])
 
   const fetchTasks = async () => {
+    console.log('erro')
+
     try {
       const response = await axios.get('http://localhost:8050/vaga', {
         headers: {
@@ -79,9 +82,14 @@ const CreatedVaga = () => {
 
   const handleFormSubmit: SubmitHandler<TaskFormData> = async (data) => {
     try {
-      await axios.post('http://localhost:8050/vaga', data)
+      const vagaData = {
+        ...data,
+        empresaId: userId,
+      }
+      await axios.post('http://localhost:8050/vaga', vagaData)
       fetchTasks()
       reset()
+      console.log('erro')
     } catch (error) {
       console.error(error)
     }
