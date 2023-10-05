@@ -32,8 +32,14 @@ const Home = () => {
     // <LoginPage>
     //   <LoginForm />
     // </LoginPage>
-    <Flex direction='column' gap={28} style={{ scrollBehavior: 'smooth' }}>
-      <Flex fill='horizontal' style={{ position: 'fixed' }}>
+    <Flex
+      direction='column'
+      gap={28}
+      style={{
+        scrollBehavior: 'smooth',
+      }}
+    >
+      <Flex fill='horizontal' style={{ position: 'fixed', zIndex: '999' }}>
         <Sidebar />
       </Flex>
       <Flex
@@ -42,7 +48,12 @@ const Home = () => {
         direction={width && width >= breakpoints.md ? 'row' : 'column'}
         justify={width && width >= breakpoints.md ? 'space-around' : 'center'}
         align='center'
-        style={{ paddingBottom: '230px', paddingTop: '180px' }}
+        style={{
+          paddingBottom: '230px',
+          paddingTop: '180px',
+          maxWidth: '1200px',
+          margin: '0 auto',
+        }}
       >
         <Flex direction='column' gap={24}>
           <Text style={{ fontSize: '60px' }} weight='bold'>
@@ -242,7 +253,7 @@ const Home = () => {
           >
             <Avatar size='50px' alt='fewfw' />
             <Text align='center' size='big'>
-              Rhuan
+              Ruan
             </Text>
             <Text align='center'>CEO & Founder</Text>
           </Flex>
