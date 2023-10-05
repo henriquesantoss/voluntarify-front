@@ -1,7 +1,7 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { Componenthttp://localhost:8050, ComponentMeta } from '@http://localhost:8050book/react'
 import { Card } from '.'
 
-const Template: ComponentStory<typeof Card> = (args) => <Card {...args} />
+const Template: Componenthttp://localhost:8050<typeof Card> = (args) => <Card {...args} />
 
 export const Primary = Template.bind({})
 Primary.args = {}
