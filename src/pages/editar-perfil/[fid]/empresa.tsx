@@ -67,7 +67,14 @@ const PerfilCompany = () => {
         const decodedToken: any = jwt.decode(token)
         console.log(decodedToken)
         const id = decodedToken.id
-        const response = await axios.get(`http://localhost:8050/empresa/${id}`)
+        const response = await axios.get(
+          `http://localhost:8050/empresa/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+          },
+        )
         const dataR = response.data
         console.log(dataR)
         const updatedData = {

@@ -22,17 +22,13 @@ const Favorito = () => {
 
   const [userId, setUserId] = useState<number>()
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = () => {
       const token: string | null = localStorage.getItem('accessToken')
       try {
         console.log('token=> ', token)
         if (token) {
           const decodedToken: any = jwt.decode(token)
-          const id = decodedToken.id
-          const response = await axios.get(
-            `http://localhost:8050/voluntario/${id}`,
-          )
-          const data = response.data
+
           setUserId(decodedToken.id)
         }
       } catch (error) {
@@ -41,7 +37,7 @@ const Favorito = () => {
     }
 
     fetchData()
-  })
+  }, [])
 
   useEffect(() => {
     const fetchFavoriteVagas = async () => {

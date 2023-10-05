@@ -12,6 +12,7 @@ import { Heading, Text } from 'components/Typography'
 import { Button } from 'components/Button'
 import Image from 'next/image'
 import { Card } from 'components/Card'
+import { decode } from 'punycode'
 
 interface DecodedToken extends JwtPayload {
   id?: string
@@ -30,57 +31,68 @@ interface PageProps {
   userId: string
 }
 
-const Page: React.FC<PageProps> = ({ dropdownItems, userId }) => {
-  const [openDropdowns, setOpenDropdowns] = useState<number[]>([])
-
-  const toggleDropdown = (index: number) => {
-    if (openDropdowns.includes(index)) {
-      setOpenDropdowns(openDropdowns.filter((item) => item !== index))
-    } else {
-      setOpenDropdowns([...openDropdowns, index])
-    }
-  }
-
-  const handleItemClick = (href: string) => {
-    window.location.href = href
-  }
-
-  return (
-    <Flex gap={24} align='center'>
-      {dropdownItems.map((dropdown, index) => (
-        <Flex direction='column' key={index} gap={10}>
-          <Text
-            style={{ cursor: 'pointer' }}
-            onClick={() => toggleDropdown(index)}
-          >
-            {dropdown.mainText}
-          </Text>
-          {openDropdowns.includes(index) && (
-            <Flex
-              direction='column'
-              style={{ position: 'absolute', marginTop: '30px' }}
-            >
-              <Card backgroundColor='dark'>
-                {dropdown.items.map((item, itemIndex) => (
-                  <Text
-                    style={{ cursor: 'pointer' }}
-                    color='mutted'
-                    key={itemIndex}
-                    onClick={() => handleItemClick(item.href)}
-                  >
-                    - {item.text}
-                  </Text>
-                ))}
-              </Card>
-            </Flex>
-          )}
-        </Flex>
-      ))}
-    </Flex>
-  )
-}
-
 export const Sidebar = () => {
+  const [type, setType] = useState('voluntario')
+
+  useEffect(() => {
+    const token: string | null = localStorage.getItem('accessToken')
+    if (token) {
+      const decodedToken: any = jwt.decode(token)
+      console.log(decodedToken)
+      setType(decodedToken.userType)
+    }
+  }, [])
+
+  const Page: React.FC<PageProps> = ({ dropdownItems, userId }) => {
+    const [openDropdowns, setOpenDropdowns] = useState<number[]>([])
+
+    const toggleDropdown = (index: number) => {
+      if (openDropdowns.includes(index)) {
+        setOpenDropdowns(openDropdowns.filter((item) => item !== index))
+      } else {
+        setOpenDropdowns([...openDropdowns, index])
+      }
+    }
+
+    const handleItemClick = (href: string) => {
+      window.location.href = href
+    }
+
+    return (
+      <Flex gap={24} align='center'>
+        {dropdownItems.map((dropdown, index) => (
+          <Flex direction='column' key={index} gap={10}>
+            <Text
+              style={{ cursor: 'pointer' }}
+              onClick={() => toggleDropdown(index)}
+            >
+              {dropdown.mainText}
+            </Text>
+            {openDropdowns.includes(index) && (
+              <Flex
+                direction='column'
+                style={{ position: 'absolute', marginTop: '30px' }}
+              >
+                <Card backgroundColor='dark'>
+                  {dropdown.items.map((item, itemIndex) => (
+                    <Text
+                      style={{ cursor: 'pointer' }}
+                      color='mutted'
+                      key={itemIndex}
+                      onClick={() => handleItemClick(item.href)}
+                    >
+                      - {item.text}
+                    </Text>
+                  ))}
+                </Card>
+              </Flex>
+            )}
+          </Flex>
+        ))}
+      </Flex>
+    )
+  }
+
   const routes = useRouter()
   const [userId, setUserId] = useState<string>('')
   const [yid, setId] = useState<string | null>()
@@ -92,7 +104,7 @@ export const Sidebar = () => {
     }
   }, [])
 
-  const dropdownItems: DropdownItem[] = [
+  const dropdownItemsEmpresa: DropdownItem[] = [
     {
       mainText: 'Empresa',
       items: [
@@ -118,6 +130,9 @@ export const Sidebar = () => {
         },
       ],
     },
+  ]
+
+  const dropdownItemsVoluntario: DropdownItem[] = [
     {
       mainText: 'Voluntario',
       items: [
@@ -145,6 +160,15 @@ export const Sidebar = () => {
     },
   ]
 
+  const renderDropdown = () => {
+    if (type === 'EMPRESA') {
+      return <Page dropdownItems={dropdownItemsEmpresa} userId={userId} />
+    } else if (type === 'voluntario') {
+      return <Page dropdownItems={dropdownItemsVoluntario} userId={userId} />
+    } else {
+      return null // Caso type seja diferente de 'empresa' ou 'voluntario', não renderiza nenhum dropdown
+    }
+  }
   useEffect(() => {
     const fetchData = async () => {
       const token: string | null = localStorage.getItem('accessToken')
@@ -178,7 +202,7 @@ export const Sidebar = () => {
             <a href='#about'>About</a>
           </Flex>
         ) : (
-          <Page dropdownItems={dropdownItems} userId={userId} />
+          renderDropdown()
         )}
         <Flex gap={10}>
           {yid === null || yid === undefined ? (

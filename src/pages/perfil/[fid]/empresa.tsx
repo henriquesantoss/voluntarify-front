@@ -44,6 +44,11 @@ const Perfil = () => {
       try {
         const response = await axios.get(
           `http://localhost:8050/empresa/${index}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+          },
         )
         const userData = response.data
         setUser(userData)

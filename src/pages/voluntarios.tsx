@@ -30,7 +30,11 @@ const Perfil = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`http://localhost:8050/voluntario`)
+        const response = await axios.get(`http://localhost:8050/voluntario`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        })
         const userData = response.data
         setUser(userData)
       } catch (error) {

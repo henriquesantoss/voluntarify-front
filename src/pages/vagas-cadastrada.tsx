@@ -33,6 +33,11 @@ const Volunter = () => {
           const id = decodedToken.id
           const response = await axios.get(
             `http://localhost:8050/voluntario/${id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+              },
+            },
           )
           const data = response.data
           setUserId(decodedToken.id)
