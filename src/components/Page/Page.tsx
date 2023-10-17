@@ -1,8 +1,6 @@
 import { ReactNode, UIEventHandler, useEffect } from 'react'
 
-import { useAppDispatch } from 'hooks/useAppDispatch'
 import { Flex } from 'components/Flex'
-import { Footer, FooterProps } from 'components/Layout/Footer'
 import { Sidebar } from 'components/Layout/Sidebar'
 import { Heading } from 'components/Typography'
 import { MODALS, MODAL_TYPES } from 'constants/modals'
@@ -31,7 +29,6 @@ const PageTitle = ({
 interface PageProps {
   children?: ReactNode
   title?: ReactNode
-  footer?: FooterProps
   titleContent?: ReactNode
   onScrollContent?: UIEventHandler<HTMLDivElement>
 }
@@ -39,7 +36,6 @@ interface PageProps {
 export const Page = ({
   children,
   title,
-  footer,
   titleContent,
   onScrollContent,
 }: PageProps) => {
@@ -55,7 +51,6 @@ export const Page = ({
             {!!title && <PageTitle title={title} rightItem={titleContent} />}
             {children}
           </S.ContentContainer>
-          {!!footer && <Footer {...footer} />}
         </S.Column>
       </S.Wrapper>
     </>
