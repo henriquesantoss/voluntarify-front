@@ -57,7 +57,7 @@ const Favorito = () => {
     }
 
     fetchFavoriteVagas()
-  })
+  },[userId])
 
   return (
     <Flex direction='column' gap={20}>
