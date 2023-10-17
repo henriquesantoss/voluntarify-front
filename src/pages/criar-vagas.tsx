@@ -13,19 +13,19 @@ import { Button } from 'components/Button'
 import { Sidebar } from 'components/Layout/Sidebar'
 
 interface TaskFormData {
-  titulo: string
-  descricao: string
+  titulo?: string
+  descricao?: string
 }
 
 interface Task {
   id: number
   titulo: string
   descricao: string
+  empresaId: string
 }
 
 const CreatedVaga = () => {
   const { width, breakpoints } = useWindowSize()
-
   const router = useRouter()
 
   const {
@@ -34,9 +34,12 @@ const CreatedVaga = () => {
     formState: { errors },
     reset,
   } = useForm<TaskFormData>()
+
   const [tasks, setTasks] = useState<Task[]>([])
-  const [userId, setUserId] = useState('')
-  const [val, setVal] = useState('')
+  const [userId, setUserId] = useState<string>('')
+  const [val, setVal] = useState<string>('')
+  const [editingVaga, setEditingVaga] = useState<Task | null>(null) // Adicionado para controle de edição
+
   useEffect(() => {
     const fetchData = async () => {
       const token: string | null = localStorage.getItem('accessToken')
@@ -47,13 +50,6 @@ const CreatedVaga = () => {
           const decodedToken: any = jwt.decode(token)
           console.log(decodedToken)
           setUserId(decodedToken.id)
-          // const response = await axios.get(
-          //   `http://localhost:8050/empresa/${id}`,
-          // )
-          // const data = response.data
-          // setUserId(data.id)
-          // console.log(userId)
-          // setVal(data.razao_social)
         }
       } catch (error) {
         console.log(error)
@@ -65,8 +61,6 @@ const CreatedVaga = () => {
   }, [])
 
   const fetchTasks = async () => {
-    console.log('erro')
-
     try {
       const response = await axios.get('http://localhost:8050/vaga', {
         headers: {
@@ -74,7 +68,6 @@ const CreatedVaga = () => {
         },
       })
       setTasks(response.data)
-      console.log(tasks)
     } catch (error) {
       console.error(error)
     }
@@ -89,7 +82,40 @@ const CreatedVaga = () => {
       await axios.post('http://localhost:8050/vaga', vagaData)
       fetchTasks()
       reset()
-      console.log('erro')
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const handleEditClick = (vaga: Task) => {
+    if (vaga.empresaId === userId) {
+      setEditingVaga(vaga)
+    } else {
+      // Você pode exibir uma mensagem de erro ou fazer o que preferir quando o usuário não tem permissão para editar esta vaga.
+    }
+  }
+
+  const handleCancelEdit = () => {
+    setEditingVaga(null)
+  }
+
+  const handleUpdateVaga = async (updatedData: TaskFormData) => {
+    try {
+      if (editingVaga && editingVaga.empresaId === userId) {
+        await axios.put(
+          `http://localhost:8050/vaga/${editingVaga.id}`,
+          updatedData,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+          },
+        )
+        fetchTasks()
+        setEditingVaga(null)
+      } else {
+        // Mensagem de erro se o usuário não tem permissão para editar esta vaga.
+      }
     } catch (error) {
       console.error(error)
     }
@@ -135,7 +161,35 @@ const CreatedVaga = () => {
                 sizeTitle='big'
                 key={vaga.id}
               >
-                <Text>Descrição: {vaga.descricao}</Text>
+                {editingVaga === vaga ? (
+                  <form onSubmit={handleSubmit(handleUpdateVaga)}>
+                    <Flex gap='md' direction='column'>
+                      <input
+                        {...register('titulo', { required: true })}
+                        type='text'
+                        placeholder='titulo'
+                        defaultValue={vaga.titulo}
+                      />
+                      <input
+                        {...register('descricao', { required: true })}
+                        type='text'
+                        placeholder='descricao'
+                        defaultValue={vaga.descricao}
+                      />
+                      <Button type='submit'>Atualizar</Button>
+                      <Button onClick={handleCancelEdit}>Cancelar</Button>
+                    </Flex>
+                  </form>
+                ) : (
+                  <>
+                    <Text>Descrição: {vaga.descricao}</Text>
+                    {vaga.empresaId === userId ? (
+                      <Button onClick={() => handleEditClick(vaga)}>
+                        Editar
+                      </Button>
+                    ) : null}
+                  </>
+                )}
               </Card>
             ))}
           </Flex>

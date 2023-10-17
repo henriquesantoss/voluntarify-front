@@ -33,10 +33,10 @@ export const LoginForm = () => {
       })
       router.push('/inicio')
     } catch (error) {
-      console.error(error)
-      alert(
-        'Erro ao efetuar login. Verifique suas credenciais e tente novamente.',
-      )
+      toast.error('Dados invalidos.', {
+        icon: <Icon color='error' as='error' />,
+        autoClose: 1500,
+      })
     }
   }
 
