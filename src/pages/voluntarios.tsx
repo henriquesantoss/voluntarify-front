@@ -30,7 +30,7 @@ const Perfil = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`http://localhost:8050/voluntario`, {
+        const response = await axios.get(`https://voluntarify-api.onrender.com/voluntario`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },

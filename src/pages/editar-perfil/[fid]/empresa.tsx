@@ -68,7 +68,7 @@ const PerfilCompany = () => {
         console.log(decodedToken)
         const id = decodedToken.id
         const response = await axios.get(
-          `http://localhost:8050/empresa/${id}`,
+          `https://voluntarify-api.onrender.com/empresa/${id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -93,7 +93,7 @@ const PerfilCompany = () => {
           uf: data.uf || dataR.uf,
         }
         console.log(dataR.password)
-        await axios.put(`http://localhost:8050/empresa/${id}`, updatedData, {
+        await axios.put(`https://voluntarify-api.onrender.com/empresa/${id}`, updatedData, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
@@ -110,7 +110,7 @@ const PerfilCompany = () => {
   }
   const onDelete = async () => {
     try {
-      await axios.delete(`http://localhost:8050/empresa/${id}`, {
+      await axios.delete(`https://voluntarify-api.onrender.com/empresa/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },

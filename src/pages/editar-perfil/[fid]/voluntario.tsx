@@ -54,7 +54,7 @@ const Perfil = () => {
         console.log(decodedToken)
         const id = decodedToken.id
         const response = await axios.get(
-          `http://localhost:8050/voluntario/${id}`,
+          `https://voluntarify-api.onrender.com/voluntario/${id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -72,7 +72,7 @@ const Perfil = () => {
           celular: data.celular || dataR.celular,
         }
         console.log(dataR.password)
-        await axios.put(`http://localhost:8050/voluntario/${id}`, updatedData, {
+        await axios.put(`https://voluntarify-api.onrender.com/voluntario/${id}`, updatedData, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
@@ -100,7 +100,7 @@ const Perfil = () => {
   }
   const onDelete = async () => {
     try {
-      await axios.delete(`http://localhost:8050/voluntario/${id}`, {
+      await axios.delete(`https://voluntarify-api.onrender.com/voluntario/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },

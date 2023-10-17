@@ -27,7 +27,7 @@ export default function Company() {
   const onSubmit = async (data: ResetPasswordEmailFormData) => {
     try {
       await axios.post(
-        'http://localhost:8050/empresa/reset-password-email',
+        'https://voluntarify-api.onrender.com/empresa/reset-password-email',
         data,
       )
       toast.success('E-mail enviado com sucesso.', {

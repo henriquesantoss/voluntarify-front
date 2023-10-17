@@ -43,7 +43,7 @@ const Favorito = () => {
     const fetchFavoriteVagas = async () => {
       try {
         const response = await axios.get<FavoritoData[]>(
-          ` http://localhost:8050/favoritos/${userId}`,
+          ` https://voluntarify-api.onrender.com/favoritos/${userId}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('accessToken')}`,

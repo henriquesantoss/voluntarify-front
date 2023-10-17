@@ -55,7 +55,7 @@ const a3: NextPage = () => {
           console.log(decodedToken)
           const id = decodedToken.id
           const response = await axios.get(
-            `http://localhost:8050/empresa/${id}`,
+            `https://voluntarify-api.onrender.com/empresa/${id}`,
           )
           const data = response.data
           setUserId(data.id)
@@ -72,7 +72,7 @@ const a3: NextPage = () => {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get('http://localhost:8050/vagas')
+      const response = await axios.get('https://voluntarify-api.onrender.com/vagas')
       setTasks(response.data)
     } catch (error) {
       console.error(error)
@@ -81,7 +81,7 @@ const a3: NextPage = () => {
 
   const handleFormSubmit: SubmitHandler<TaskFormData> = async (data) => {
     try {
-      await axios.post('http://localhost:8050/vagas', data)
+      await axios.post('https://voluntarify-api.onrender.com/vagas', data)
       fetchTasks()
       reset()
     } catch (error) {

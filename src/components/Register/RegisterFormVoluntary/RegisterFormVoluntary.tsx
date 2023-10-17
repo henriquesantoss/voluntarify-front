@@ -70,7 +70,7 @@ export const RegisterFormVoluntary = () => {
       //   return
       // }
 
-      await axios.post('http://localhost:8050/voluntario', data)
+      await axios.post('https://voluntarify-api.onrender.com/voluntario', data)
       toast.success('Cadastro feito com sucesso.', {
         icon: <Icon color='success' as='error' />,
         autoClose: 1500,

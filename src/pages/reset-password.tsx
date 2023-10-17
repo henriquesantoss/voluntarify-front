@@ -33,7 +33,7 @@ export default function ResetPassword() {
       }
 
       try {
-        await axios.post('http://localhost:8050/reset-password', {
+        await axios.post('https://voluntarify-api.onrender.com/reset-password', {
           token,
           newPassword: data.newPassword,
         })

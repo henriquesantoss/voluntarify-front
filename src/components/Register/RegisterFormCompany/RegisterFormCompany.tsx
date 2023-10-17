@@ -118,7 +118,7 @@ export const RegisterFormCompany = () => {
         } catch (error) {}
       }
 
-      await axios.post('http://localhost:8050/empresa', data)
+      await axios.post('https://voluntarify-api.onrender.com/empresa', data)
       toast.success('Cadastro feito com sucesso.', {
         icon: <Icon color='success' as='error' />,
         autoClose: 1500,

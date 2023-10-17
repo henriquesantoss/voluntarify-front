@@ -46,7 +46,7 @@ const a2 = () => {
           console.log(decodedToken)
           const id = decodedToken.id
           const response = await axios.get(
-            `http://localhost:8050/voluntario/${id}`,
+            `https://voluntarify-api.onrender.com/voluntario/${id}`,
           )
           const data = response.data
           setUserId(data.id)
@@ -63,7 +63,7 @@ const a2 = () => {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get('http://localhost:8050/vagas')
+      const response = await axios.get('https://voluntarify-api.onrender.com/vagas')
       const lastThreeTasks = response.data.slice(-5)
       setTasks(lastThreeTasks)
     } catch (error) {

@@ -22,7 +22,7 @@ export const LoginForm = () => {
   const onSubmit: SubmitHandler<LoginForm> = async (data) => {
     try {
       const response = await axios.post(
-        'http://localhost:8050/auth/login',
+        'https://voluntarify-api.onrender.com/auth/login',
         data,
       )
       const { token } = response.data

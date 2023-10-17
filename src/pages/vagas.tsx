@@ -61,7 +61,7 @@ const Vacancies = () => {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get('http://localhost:8050/vaga', {
+      const response = await axios.get('https://voluntarify-api.onrender.com/vaga', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
@@ -75,7 +75,7 @@ const Vacancies = () => {
   const handleCadasterClick = async (vagaId: number) => {
     try {
       if (isSubscribed[vagaId]) {
-        await axios.delete(`http://localhost:8050/uservagas/${vagaId}`, {
+        await axios.delete(`https://voluntarify-api.onrender.com/uservagas/${vagaId}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
@@ -84,7 +84,7 @@ const Vacancies = () => {
         setIsSubscribed({ ...isSubscribed, [vagaId]: false })
       } else {
         await axios.post(
-          `http://localhost:8050/uservagas/`,
+          `https://voluntarify-api.onrender.com/uservagas/`,
           {
             vagaId: vagaId,
             voluntarioId: userId,
@@ -106,7 +106,7 @@ const Vacancies = () => {
   const handleFavoriteClick = async (vagaId: number) => {
     try {
       if (isFavorited[vagaId]) {
-        await axios.delete(`http://localhost:8050/favoritos/${vagaId}`, {
+        await axios.delete(`https://voluntarify-api.onrender.com/favoritos/${vagaId}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
@@ -114,7 +114,7 @@ const Vacancies = () => {
         setIsFavorited({ ...isFavorited, [vagaId]: false })
       } else {
         await axios.post(
-          `http://localhost:8050/favoritar`,
+          `https://voluntarify-api.onrender.com/favoritar`,
           {
             vagaId: vagaId,
             voluntarioId: userId,

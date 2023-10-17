@@ -62,7 +62,7 @@ const CreatedVaga = () => {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get('http://localhost:8050/vaga', {
+      const response = await axios.get('https://voluntarify-api.onrender.com/vaga', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
@@ -79,7 +79,7 @@ const CreatedVaga = () => {
         ...data,
         empresaId: userId,
       }
-      await axios.post('http://localhost:8050/vaga', vagaData)
+      await axios.post('https://voluntarify-api.onrender.com/vaga', vagaData)
       fetchTasks()
       reset()
     } catch (error) {
@@ -103,7 +103,7 @@ const CreatedVaga = () => {
     try {
       if (editingVaga && editingVaga.empresaId === userId) {
         await axios.put(
-          `http://localhost:8050/vaga/${editingVaga.id}`,
+          `https://voluntarify-api.onrender.com/vaga/${editingVaga.id}`,
           updatedData,
           {
             headers: {

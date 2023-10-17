@@ -32,7 +32,7 @@ const Volunter = () => {
           console.log(decodedToken)
           const id = decodedToken.id
           const response = await axios.get(
-            `http://localhost:8050/voluntario/${id}`,
+            `https://voluntarify-api.onrender.com/voluntario/${id}`,
             {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -55,7 +55,7 @@ const Volunter = () => {
     const fetchFavoriteVagas = async () => {
       try {
         const response = await axios.get<FavoritoData[]>(
-          ` http://localhost:8050/uservagas/${userId}`,
+          ` https://voluntarify-api.onrender.com/uservagas/${userId}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('accessToken')}`,

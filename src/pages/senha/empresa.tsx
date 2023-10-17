@@ -26,7 +26,7 @@ const ResetPasswordCompany = () => {
     }
 
     try {
-      await axios.post('http://localhost:8050/empresa/red-senha', {
+      await axios.post('https://voluntarify-api.onrender.com/empresa/red-senha', {
         newPassword: senha,
       })
       setMessage('Senha redefinida com sucesso!')
