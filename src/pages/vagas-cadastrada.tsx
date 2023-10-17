@@ -49,7 +49,7 @@ const Volunter = () => {
     }
 
     fetchData()
-  })
+  },[])
 
   useEffect(() => {
     const fetchFavoriteVagas = async () => {
@@ -69,7 +69,7 @@ const Volunter = () => {
     }
 
     fetchFavoriteVagas()
-  })
+  },[userId])
 
   return (
     <Flex direction='column' gap={20}>
