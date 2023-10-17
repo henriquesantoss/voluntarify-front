@@ -32,7 +32,7 @@ interface PageProps {
 }
 
 export const Sidebar = () => {
-  const [type, setType] = useState('voluntario')
+  const [type, setType] = useState('')
 
   useEffect(() => {
     const token: string | null = localStorage.getItem('accessToken')
@@ -42,7 +42,7 @@ export const Sidebar = () => {
       setType(decodedToken.userType)
     }
   }, [])
-
+console.log(type)
   const Page: React.FC<PageProps> = ({ dropdownItems, userId }) => {
     const [openDropdowns, setOpenDropdowns] = useState<number[]>([])
 
@@ -163,7 +163,7 @@ export const Sidebar = () => {
   const renderDropdown = () => {
     if (type === 'EMPRESA') {
       return <Page dropdownItems={dropdownItemsEmpresa} userId={userId} />
-    } else if (type === 'voluntario') {
+    } else if (type === 'VOLUNTARIO') {
       return <Page dropdownItems={dropdownItemsVoluntario} userId={userId} />
     } else {
       return null // Caso type seja diferente de 'empresa' ou 'voluntario', não renderiza nenhum dropdown
