@@ -69,7 +69,7 @@ const Volunter = () => {
     }
 
     fetchFavoriteVagas()
-  },[favoriteVagas])
+  })
 
   return (
     <Flex direction='column' gap={20}>
